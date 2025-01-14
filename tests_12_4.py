@@ -1,7 +1,8 @@
 import logging
-from unittest import TestCase
+import unittest
 
-
+logging.basicConfig(level=logging.INFO, filemode='w', filename='runner_tests.log',
+                    encoding='UTF-8', format='%(asctime)s - %(levelname)s - %(message)s')
 class Runner:
     def __init__(self, name, speed=5):
         if isinstance(name, str):
@@ -52,7 +53,7 @@ class Tournament:
         return finishers
 
 
-class RunnerTest(TestCase):
+class RunnerTest(unittest.TestCase):
     def test_walk(self):
         try:
             runner = Runner('Danil', -10)
@@ -73,26 +74,13 @@ class RunnerTest(TestCase):
         except:
             logging.warning("Неверный тип данных для объекта Runner", exc_info=True)
 
-    def test_challenge(self):
-        first_runner = Runner('Danil')
-        second_runner = Runner('Danil')
-        for i in range(0, 10):
-            first_runner.run()
-            first_runner.walk()
-            second_runner.run()
-            second_runner.walk()
-
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO,
-                        filemode='w',
-                        filename='runner_tests.log',
-                        encoding='UTF-8',
-                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    unittest.main()
+    
+    first = Runner('Вося', 10)
+    second = Runner('Илья', 5)
+    third = Runner('Арсен', 10)
 
-# first = Runner('Вося', 10)
-# second = Runner('Илья', 5)
-# # third = Runner('Арсен', 10)
-#
-# t = Tournament(101, first, second)
-# print(t.start())
+    t = Tournament(101, first, second)
+    print(t.start())
