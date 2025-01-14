@@ -44,32 +44,35 @@ class Tournament:
         return finishers
 
 
-class TournamentTest(TestCase):
+class TournamentTest(unittest.TestCase):
+    @classmethod
     def setUpClass(self):
         self.all_results = {}
 
     def setUp(self):
-        usain_runner = Runner('Усэйн', 10)
-        andrey_runner = Runner('Андрей', 9)
-        nick_runner = Runner('Ник', 3)
+        self.usain_runner = Runner('Усэйн', 10)
+        self.andrey_runner = Runner('Андрей', 9)
+        self.nick_runner = Runner('Ник', 3)
 
+    @classmethod
     def tearDownClass(self):
-        pprint(self.all_results)
+        for k, v in self.all_results.items():
+            print(f'{k}: {v}')
 
-    def one_test_run(self):
-        one_tournament = Tournament(90, [self.usain_runner, self.nick_runner])
-        one_tournament.start()
-        self.assertTrue(list(self.all_results.items())[-1])
+    def test_usain_and_nick(self):
+        tournament = Tournament(90, [self.usain_runner, self.nick_runner])
+        tournament.start()
+        self.assertTrue(tournament.participants[-1].name == "Ник")
 
-    def two_test_run(self):
-        two_tournament = Tournament(90, self.andrey_runner, self.nick_runner)
-        two_tournament.start()
-        self.assertTrue(list(self.all_results.items())[-1])
+    def test_andrey_and_nick(self):
+        tournament = Tournament(90, [self.andrey_runner, self.nick_runner])
+        tournament.start()
+        self.assertTrue(tournament.participants[-1].name == "Ник")
 
-    def three_test_run(self):
-        three_tournament = Tournament(90, self.usain_runner, self.andrey_runner, self.nick_runner)
-        three_tournament.start()
-        self.assertTrue(list(self.all_results.items())[-1])
+    def test_usain_andrey_and_nick(self):
+        tournament = Tournament(90, [self.usain_runner, self.andrey_runner, self.nick_runner])
+        tournament.start()
+        self.assertTrue(tournament.participants[-1].name == "Ник")
 
 
 if __name__ == '__main__':
