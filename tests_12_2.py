@@ -45,7 +45,7 @@ class Tournament:
 
 
 class TournamentTest(unittest.TestCase):
-    @classmethod
+
     def setUpClass(self):
         self.all_results = {}
 
@@ -54,7 +54,6 @@ class TournamentTest(unittest.TestCase):
         self.andrey_runner = Runner('Андрей', 9)
         self.nick_runner = Runner('Ник', 3)
 
-    @classmethod
     def tearDownClass(self):
         for k, v in self.all_results.items():
             print(f'{k}: {v}')
